@@ -5,6 +5,7 @@ services:
             dockerfile: Dockerfile
         environment:
             - PORT=3000
+            - DICTIONARY_API=https://api.dictionaryapi.dev/api/v2/entries/en/
         command: npm start
         ports:
             - "3000:3000"
@@ -54,4 +55,3 @@ services:
 volumes:
     grafana_config:
         driver: local
-    app:
