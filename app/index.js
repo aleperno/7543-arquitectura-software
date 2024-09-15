@@ -1,10 +1,10 @@
 const express = require('express');
 
-
 const port = process.env.PORT || 3000;
 const app = express();
 const DICTIONARY_API = process.env.DICTIONARY_API
 const SPACEFLIGHT_NEWS_API = process.env.SPACEFLIGHT_NEWS_API
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 app.get('/ping', (req, res) => {
         res.send('pong');
@@ -47,6 +47,24 @@ app.get('/spaceflight_news', (req, res) => {
                 title: n.title,
             }));
             res.send(news);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).send('Internal server error');
+        });
+});
+
+app.get('/quote', (req, res) => {
+    const url = 'https://api.quotable.io/random';
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            const response = {
+                author: data.author,
+                content: data.content
+            }
+            res.send(response);
         })
         .catch(err => {
             console.log(err);
