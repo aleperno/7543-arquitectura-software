@@ -1,6 +1,18 @@
-version: '3'
-
 services:
+    node:
+        build:
+            context: app
+            dockerfile: Dockerfile
+        environment:
+            - PORT=3000
+            - DICTIONARY_API=https://api.dictionaryapi.dev/api/v2/entries/en/
+            - SPACEFLIGHT_NEWS_API=https://api.spaceflightnewsapi.net/v4/articles/
+        command: npm start
+        ports:
+            - "3000:3000"
+        volumes:
+            - ./app:/app
+
     nginx:
         image: nginx:1.25.4
         ports:
