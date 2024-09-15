@@ -4,6 +4,7 @@ const port = process.env.PORT || 3000;
 const app = express();
 const DICTIONARY_API = process.env.DICTIONARY_API
 const SPACEFLIGHT_NEWS_API = process.env.SPACEFLIGHT_NEWS_API
+const QUOTE_API = process.env.QUOTE_API
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 app.get('/ping', (req, res) => {
