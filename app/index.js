@@ -4,6 +4,7 @@ const express = require('express');
 const port = process.env.PORT || 3000;
 const app = express();
 const DICTIONARY_API = process.env.DICTIONARY_API
+const SPACEFLIGHT_NEWS_API = process.env.SPACEFLIGHT_NEWS_API
 
 app.get('/ping', (req, res) => {
         res.send('pong');
@@ -27,6 +28,28 @@ app.get('/dictionary', (req, res) => {
             res.send({ phonetics, meanings });
         })
         .catch(err => {
+            res.status(500).send('Internal server error');
+        });
+});
+
+app.get('/spaceflight_news', (req, res) => {
+    const limit = req.query.limit || 5;
+    const url = `${SPACEFLIGHT_NEWS_API}?limit=${limit}`;
+
+    fetch(url, {
+        headers: {
+            'accept': 'application/json'
+        }
+    })
+        .then(response => response.json())
+        .then(data => {
+            const news = data.results.map(n => ({
+                title: n.title,
+            }));
+            res.send(news);
+        })
+        .catch(err => {
+            console.log(err);
             res.status(500).send('Internal server error');
         });
 });
