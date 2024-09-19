@@ -497,8 +497,8 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "1c25-tp-1_node_1",
-          "value": "1c25-tp-1_node_1"
+          "text": "1-tp-node",
+          "value": "1-tp-node"
         },
         "error": null,
         "hide": 0,
@@ -509,8 +509,8 @@
         "options": [
           {
             "selected": true,
-            "text": "1c25-tp-1_node_1",
-            "value": "1c25-tp-1_node_1"
+            "text": "1-tp-node",
+            "value": "1-tp-node"
           },
           {
             "selected": false,
@@ -543,7 +543,7 @@
             "value": "1c25-tp-1_nginx_1"
           }
         ],
-        "query": "1c25-tp-1_node_1, 1c25-tp-1_node_2, 1c25-tp-1_node_3, 1c25-tp-1_cadvisor_1, 1c25-tp-1_grafana_1, 1c25-tp-1_graphite_1,  1c25-tp-1_nginx_1, 1c25-tp-1_bbox_1",
+        "query": "1-tp-node, 1c25-tp-1_node_2, 1c25-tp-1_node_3, 1c25-tp-1_cadvisor_1, 1c25-tp-1_grafana_1, 1c25-tp-1_graphite_1,  1c25-tp-1_nginx_1, 1c25-tp-1_bbox_1",
         "queryValue": "",
         "skipUrlSync": false,
         "type": "custom"
