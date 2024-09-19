@@ -8,6 +8,7 @@ services:
             - DICTIONARY_API=https://api.dictionaryapi.dev/api/v2/entries/en/
             - SPACEFLIGHT_NEWS_API=https://api.spaceflightnewsapi.net/v4/articles/
             - QUOTES_API=https://api.quotable.io/random
+            - REDIS_URI=redis://redis:6379
         command: npm start
         ports:
             - "3000:3000"
@@ -23,6 +24,11 @@ services:
             - ./store/static/files:/static:ro
         links:
             - node
+
+    redis:
+      image: redis:7.4.0
+      ports:
+        - "6379:6379"
 
     graphite:
         image: graphiteapp/graphite-statsd:1.1.10-5

@@ -1,4 +1,5 @@
 const express = require('express');
+const { initRedis } = require('./redis')
 
 const port = process.env.PORT || 3000;
 const app = express();
@@ -55,7 +56,7 @@ app.get('/spaceflight_news', (req, res) => {
         });
 });
 
-app.get('/quote', (req, res) => {
+app.get('/quote', (_req, res) => {
     const url = 'https://api.quotable.io/random';
 
     fetch(url)
@@ -73,6 +74,15 @@ app.get('/quote', (req, res) => {
         });
 });
 
-app.listen(port, () => {
+async function initApp() {
+  await initRedis();
+
+  app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
-})   
+  });
+}
+
+initApp()
+  .then()
+  .catch((e) => console.error('Error initializing Express app', e));
+
