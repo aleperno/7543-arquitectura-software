@@ -1,4 +1,5 @@
 const express = require('express');
+const { initRedis, cache } = require('./redis')
 
 const port = process.env.PORT || 3000;
 const app = express();
@@ -11,29 +12,29 @@ app.get('/ping', (req, res) => {
         res.send('pong');
 });
 
-app.get('/dictionary', (req, res) => {
+app.get('/dictionary', cache(), async (req, res) => {
     const word = req.query.word;
     if (!word) {
         res.status(400).send('Word is required');
     }
     const url = `${DICTIONARY_API}${word}`;
 
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            const phonetics = data[0].phonetics.map(p => p.text).join(', ');
-            const meanings = data[0].meanings.map(m => ({
-                partOfSpeech: m.partOfSpeech,
-                definitions: m.definitions.map(d => d.definition).join(', ')
-            }));
-            res.send({ phonetics, meanings });
-        })
-        .catch(err => {
-            res.status(500).send('Internal server error');
-        });
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      const phonetics = data[0].phonetics.map(p => p.text).join(', ');
+      const meanings = data[0].meanings.map(m => ({
+        partOfSpeech: m.partOfSpeech,
+        definitions: m.definitions.map(d => d.definition).join(', ')
+      }));
+      res.send({ phonetics, meanings });
+    } catch (e) {
+      console.error(e);
+      res.status(500).send('Internal server error');
+    }
 });
 
-app.get('/spaceflight_news', (req, res) => {
+app.get('/spaceflight_news', cache(), (req, res) => {
     const limit = req.query.limit || 5;
     const url = `${SPACEFLIGHT_NEWS_API}?limit=${limit}`;
 
@@ -55,7 +56,7 @@ app.get('/spaceflight_news', (req, res) => {
         });
 });
 
-app.get('/quote', (req, res) => {
+app.get('/quote', (_req, res) => {
     const url = 'https://api.quotable.io/random';
 
     fetch(url)
@@ -73,6 +74,15 @@ app.get('/quote', (req, res) => {
         });
 });
 
-app.listen(port, () => {
+async function initApp() {
+  await initRedis();
+
+  app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
-})   
+  });
+}
+
+initApp()
+  .then()
+  .catch((e) => console.error('Error initializing Express app', e));
+
