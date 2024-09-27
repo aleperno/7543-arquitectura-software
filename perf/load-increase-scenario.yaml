@@ -1,0 +1,15 @@
+#Escenario para ver como se incrementa la carga gradualmente:
+
+config: 
+  target: "http//localhost:5555"
+  phases:
+    - duration: 120
+      arrivalRate: 50
+      rampTo: 300 # Este dato logra incrementar hasta 300 usuarios por segundo
+
+scenarios:
+  - name: Load-Increase Scenario
+    flow:
+      - get: 
+          url: "/quote"
+      

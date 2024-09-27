@@ -1,0 +1,24 @@
+#Escenario para visualizar la carga distribuida
+
+config: 
+  target: "http://localhost:5555"
+  enviroments:
+    api:
+      target: "http://localhost:5555"
+  
+  phases:
+    - duration: 180
+      arrivalRate: 50
+      rampTo: 200
+
+scenarios:
+  - name: Distributed Load Test
+    flow:
+      - get:
+          url: "/dictionary?word={{ word }}"
+
+    data:
+      word:
+        - "distribution"
+        - "latency"
+        - "response"

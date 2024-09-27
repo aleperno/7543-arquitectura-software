@@ -1,0 +1,11 @@
+config: 
+  target: "https://localhost:5555"
+  phases:
+    - duration: 90
+      arrivalRate: 200
+
+scenarios:
+  - name: Quote Scenario
+    flow:
+      - get: 
+          url: "/quote"

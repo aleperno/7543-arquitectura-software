@@ -1,0 +1,12 @@
+# Escenario para probar la resistencia, es decir, ver còmo aguanta el sistema bajo carga sostenida
+
+config:
+  target: "http//localhost:5555"
+  phases:
+    - duration: 600  # Este dato indica 10 minutos de prueba
+      arrivalRate: 100
+scenarios: 
+  - name: Endurance Scenario
+    flow:
+      - get: 
+          url: "/quote"

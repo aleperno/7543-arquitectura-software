@@ -1,0 +1,18 @@
+config:
+  target: "http://localhost:5555"
+  phases:
+    - duration: 60 #Este tiempo para probar el escenario sera en segundos
+      arrivalRate: 100 #Indica este dato 100 usuarios por segundo
+
+scenarios:
+  - flow:
+      - get:
+          url: "/dictionary?word={{ word }}"
+    data:
+      word:
+        - "stress"
+        - "performance"
+        - "load"
+        - "optimization"
+        - "nodejs"
+

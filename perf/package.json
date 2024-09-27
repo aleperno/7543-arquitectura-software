@@ -6,12 +6,18 @@
   "scripts": {
     "artillery": "artillery",
     "node": "artillery run root.yaml -e api",
-    "scenario": "./run-scenario.sh"
+    "scenario": "./run-scenario.sh",
+    "scenario-root": "artillery run perf/root.yaml -e api",
+    "scenario-dictionary": "artillery run perf/dictionary-scenario.yaml -e api",
+    "scenario-quote": "artillery run perf/quote-scenario.yaml -e api",
+    "scenario-load-increase": "artillery run perf/load-increase-scenario.yaml -e api",
+    "scenario-endurace":"artillery run perf/endurace-scenario.yaml -e api ",
+    "scenario-distributed-load": "artilley run perf/distributed-load-scenario.yaml -e api"  
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "artillery": "2.0.0-14",
+  "devDependencies": {
+    "artillery": "^2.0.20",
     "artillery-plugin-statsd": "^2.2.1"
   }
 }
