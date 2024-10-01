@@ -12,8 +12,6 @@ services:
         command: npm start
         ports:
             - "3000:3000"
-        volumes:
-            - ./app:/app
 
     nginx:
         image: nginx:1.25.4
