@@ -1,0 +1,24 @@
+config:
+  target: "http://localhost:3000"
+  plugins:
+    statsd:
+      host: localhost
+      port: 8125
+      prefix: "artillery-crowdstrike"
+  phases:
+    - name: rampup
+      duration: 30      # Test duration in seconds
+      arrivalRate: 5    # Number of requests per second
+      rampTo: 30
+    - name: plain
+      duration: 120
+      arrivalRate: 30
+    - name: cooldown
+      duration: 30
+      arrivalRate: 30
+      rampTo: 1
+
+scenarios:
+  - flow:
+      - get:
+          url: "/ping"
