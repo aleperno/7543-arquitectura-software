@@ -10,9 +10,15 @@ services:
             - QUOTES_API=https://api.quotable.io/random
             - REDIS_URI=redis://redis:6379
         command: npm start
-        ports:
-            - "3000:3000"
-
+        volumes:
+            - ./app:/app
+        deploy:
+            replicas: 5
+        healthcheck:
+            test: ["CMD", "curl", "-f", "http://localhost:3000/ping"]
+            interval: 3s
+            timeout: 1s
+            retries: 5
     nginx:
         image: nginx:1.25.4
         ports:
@@ -20,8 +26,9 @@ services:
         volumes:
             - ./nginx_reverse_proxy.conf:/etc/nginx/conf.d/default.conf:ro
             - ./store/static/files:/static:ro
-        links:
-            - node
+        depends_on:
+            node:
+                condition: service_healthy
 
     redis:
       image: redis:7.4.0

@@ -9,11 +9,12 @@ const QUOTE_API = process.env.QUOTE_API
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 app.get('/ping', (req, res) => {
-        res.send('pong');
+    res.send('pong');
 });
 
 app.get('/dictionary', cache(), async (req, res) => {
     const word = req.query.word;
+    console.log("Searching for word: ", word);
     if (!word) {
         res.status(400).send('Word is required');
     }
@@ -37,7 +38,7 @@ app.get('/dictionary', cache(), async (req, res) => {
 app.get('/spaceflight_news', cache(), (req, res) => {
     const limit = req.query.limit || 5;
     const url = `${SPACEFLIGHT_NEWS_API}?limit=${limit}`;
-
+    console.log("Searching for spaceflight news");
     fetch(url, {
         headers: {
             'accept': 'application/json'
@@ -58,7 +59,7 @@ app.get('/spaceflight_news', cache(), (req, res) => {
 
 app.get('/quote', (_req, res) => {
     const url = 'https://api.quotable.io/random';
-
+    console.log("Searching for quote");
     fetch(url)
         .then(response => response.json())
         .then(data => {
