@@ -8,9 +8,30 @@ const SPACEFLIGHT_NEWS_API = process.env.SPACEFLIGHT_NEWS_API
 const QUOTE_API = process.env.QUOTE_API
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
+
+
+const StatsD = require('hot-shots');
+const os = require('os');
+// Create a StatsD client
+const statsd_client = new StatsD({
+    host: "graphite",
+    port: 8125,
+    protocol: "udp",
+    errorHandler: (error) => {
+        console.error("Error while reporting metric:", error);
+    },
+});
+
+
 app.get('/ping', (req, res) => {
+    const start = Date.now();
+    console.log("received ping");
+    const end = Date.now();
+    statsd_client.gauge(`server_timing`, end-start);
     res.send('pong');
 });
+
+
 
 app.get('/dictionary', cache(), async (req, res) => {
     const word = req.query.word;
@@ -86,4 +107,3 @@ async function initApp() {
 initApp()
   .then()
   .catch((e) => console.error('Error initializing Express app', e));
-
