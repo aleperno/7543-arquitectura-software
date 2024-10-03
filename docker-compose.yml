@@ -20,12 +20,16 @@ services:
         deploy:
             replicas: 5
     nginx:
-        image: nginx:1.25.4
+        build:
+            context: nginx
+            dockerfile: Dockerfile
         ports:
             - "5555:80"
         volumes:
-            - ./nginx_reverse_proxy.conf:/etc/nginx/conf.d/default.conf:ro
+            #- ./nginx_reverse_proxy.conf:/etc/nginx/conf.d/default.conf:ro
             - ./store/static/files:/static:ro
+        environment:
+            - RATE_LIMIT=${RATE_LIMIT-999999r/s}
         depends_on:
             - node
 

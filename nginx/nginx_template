@@ -1,0 +1,15 @@
+limit_req_zone $binary_remote_addr zone=mylimit:10m rate=${RATE_LIMIT};
+
+# Define the upstream server
+upstream node {
+    server node:3000;
+}
+
+server {
+    listen 80;
+
+    location / {
+        limit_req zone=mylimit;
+        proxy_pass http://node;
+    }
+}
