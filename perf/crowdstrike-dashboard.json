@@ -338,6 +338,97 @@
       }
     },
     {
+      "datasource": {
+        "type": "graphite",
+        "uid": "f55f4680-2798-4432-b404-d4f84719f6aa"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 21,
+        "x": 0,
+        "y": 21
+      },
+      "id": 6,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "graphite",
+            "uid": "f55f4680-2798-4432-b404-d4f84719f6aa"
+          },
+          "hide": false,
+          "refId": "A",
+          "target": "stats.gauges.server_timing"
+        }
+      ],
+      "title": "Response Time (Server Side)",
+      "type": "timeseries"
+    },
+    {
       "aliasColors": {
         "Memory": "#EAB839"
       },
@@ -354,7 +445,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 21
+        "y": 30
       },
       "height": "250px",
       "hiddenSeries": false,
@@ -480,9 +571,9 @@
       },
       {
         "current": {
-          "selected": true,
-          "text": "7543-arquitectura-software-node-1",
-          "value": "7543-arquitectura-software-node-1"
+          "selected": false,
+          "text": "7543-arquitectura-software-nginx-1",
+          "value": "7543-arquitectura-software-nginx-1"
         },
         "hide": 0,
         "includeAll": false,
@@ -495,7 +586,7 @@
             "value": "7543-arquitectura-software-cadvisor-1"
           },
           {
-            "selected": false,
+            "selected": true,
             "text": "7543-arquitectura-software-nginx-1",
             "value": "7543-arquitectura-software-nginx-1"
           },
@@ -505,7 +596,7 @@
             "value": "7543-arquitectura-software-redis-1"
           },
           {
-            "selected": true,
+            "selected": false,
             "text": "7543-arquitectura-software-node-1",
             "value": "7543-arquitectura-software-node-1"
           },
@@ -554,6 +645,6 @@
   "timezone": "",
   "title": "Crowd Strike Dashboard",
   "uid": "arxIPammkj",
-  "version": 2,
+  "version": 4,
   "weekStart": ""
 }
