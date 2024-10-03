@@ -50,7 +50,7 @@ services:
             - "2003:2003"
 
     grafana:
-        image: grafana/grafana:10.1.9
+        image: grafana/grafana:11.2.2
         ports:
             - "80:3000"
         volumes:
@@ -72,3 +72,7 @@ services:
 volumes:
     grafana_config:
         driver: local
+
+networks:
+    default:
+        name: 7543-arquitectura-software

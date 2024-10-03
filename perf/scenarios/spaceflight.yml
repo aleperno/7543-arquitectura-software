@@ -1,0 +1,26 @@
+config:
+  target: "http://node:3000"
+  plugins:
+    statsd:
+      host: graphite
+      port: 8125
+      prefix: "artillery-crowdstrike"
+  phases:
+    - name: prerush
+      duration: 30
+      arrivalRate: 5
+    - name: increasing
+      duration: 30      # Test duration in seconds
+      arrivalRate: 5    # Number of requests per second
+      rampTo: 30
+    - name: plain
+      duration: 120
+      arrivalRate: 30
+    - name: decreasing
+      duration: 30
+      arrivalRate: 5
+
+scenarios:
+  - flow:
+      - get:
+          url: "/spaceflight_news"

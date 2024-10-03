@@ -16,12 +16,31 @@ async function initRedis() {
   }
 };
 
+
+function cacheEnabled() {
+  const useCache = process.env.USE_CACHE;
+  const bcache = useCache === "yes"
+  return bcache;
+};
+
+
 function cacheMiddleware(options={EX: 3600}) {
   return async (req, res, next) => {
     const key = `${req.path}-${JSON.stringify(req.query)}`;
-    const cacheValue = await fetch(key);
+    let cacheValue = null;
+    
     const useCache = process.env.USE_CACHE;
-    console.log(`Use Cache value is set as: ${useCache}`);
+    const bcache = useCache === "yes"
+    console.log(`Env var value is ${useCache}`);
+    console.log(`Use Cache value is set as: ${bcache}`);
+
+    const cachenabled = cacheEnabled();
+    if (!cachenabled) {
+      // Leave cacheValue undefined
+    } else {
+      cacheValue = await fetch(key);
+    }
+
     if (cacheValue) {
       try {
         return res.json(JSON.parse(cacheValue));
@@ -32,7 +51,7 @@ function cacheMiddleware(options={EX: 3600}) {
       const send = res.send;
       res.send = function(data) {
         res.send = send;
-        if (res.statusCode.toString().startsWith('2')) {
+        if (res.statusCode.toString().startsWith('2') && cachenabled) {
           write(key, JSON.stringify(data), options);
         }
         return res.send(data);

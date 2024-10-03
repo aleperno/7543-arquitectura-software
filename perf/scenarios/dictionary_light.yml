@@ -1,0 +1,32 @@
+config:
+  target: "http://node:3000"
+  plugins:
+    statsd:
+      host: graphite
+      port: 8125
+      prefix: "artillery-crowdstrike"
+  payload:
+    path: "popular_en.txt"
+    fields:
+        - "word"
+    order: sequence
+  phases:
+    - name: prerush
+      duration: 30
+      arrivalCount: 15
+    - name: increasing
+      duration: 30      # Test duration in seconds
+      arrivalRate: 1    # Number of requests per second
+      rampTo: 30
+    - name: plain
+      duration: 120
+      arrivalCount: 60
+    - name: decreasing
+      duration: 30
+      arrivalRate: 1
+
+
+scenarios:
+  - flow:
+      - get:
+          url: "/dictionary?word={{ word }}"

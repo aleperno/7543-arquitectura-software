@@ -44,7 +44,7 @@ app.get('/dictionary', cache(), async (req, res) => {
         res.status(400).send('Word is required');
     }
     const url = `${DICTIONARY_API}${word}`;
-
+    const start = Date.now();
     try {
       const response = await fetch(url);
       const data = await response.json();
@@ -58,12 +58,15 @@ app.get('/dictionary', cache(), async (req, res) => {
       console.error(e);
       res.status(500).send('Internal server error');
     }
+    const end = Date.now();
+    statsd_client.gauge(`server_timing`, end-start);
 });
 
 app.get('/spaceflight_news', cache(), (req, res) => {
     const limit = req.query.limit || 5;
     const url = `${SPACEFLIGHT_NEWS_API}?limit=${limit}`;
     console.log("Searching for spaceflight news");
+    const start = Date.now();
     fetch(url, {
         headers: {
             'accept': 'application/json'
@@ -80,6 +83,8 @@ app.get('/spaceflight_news', cache(), (req, res) => {
             console.log(err);
             res.status(500).send('Internal server error');
         });
+    const end = Date.now();
+    statsd_client.gauge(`server_timing`, end-start);
 });
 
 app.get('/quote', (_req, res) => {
