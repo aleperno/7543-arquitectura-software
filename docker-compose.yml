@@ -12,8 +12,10 @@ services:
             - SPACEFLIGHT_NEWS_API=https://api.spaceflightnewsapi.net/v4/articles/
             - QUOTES_API=https://api.quotable.io/random
             - REDIS_URI=redis://redis:6379
+            - USE_CACHE=${USE_CACHE-no}
         volumes:
             - ./app/index.js:/app/index.js
+            - ./app/redis.js:/app/redis.js
         command: npm start
         deploy:
             replicas: 5

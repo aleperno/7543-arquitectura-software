@@ -24,6 +24,10 @@ const statsd_client = new StatsD({
 
 
 app.get('/ping', (req, res) => {
+    const useCache = process.env.USE_CACHE;
+    const bcache = useCache === "yes"
+    console.log(`Env var value is ${useCache}`);
+    console.log(`Use Cache value is set as: ${bcache}`);
     const start = Date.now();
     console.log("received ping");
     const end = Date.now();

@@ -20,6 +20,8 @@ function cacheMiddleware(options={EX: 3600}) {
   return async (req, res, next) => {
     const key = `${req.path}-${JSON.stringify(req.query)}`;
     const cacheValue = await fetch(key);
+    const useCache = process.env.USE_CACHE;
+    console.log(`Use Cache value is set as: ${useCache}`);
     if (cacheValue) {
       try {
         return res.json(JSON.parse(cacheValue));
