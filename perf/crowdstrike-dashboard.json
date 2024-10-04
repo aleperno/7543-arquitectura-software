@@ -393,6 +393,16 @@
           "refCount": 0,
           "refId": "E",
           "target": "alias(stats.gauges.$server.codes.500, 'Failed')"
+        },
+        {
+          "datasource": {
+            "type": "graphite",
+            "uid": "f55f4680-2798-4432-b404-d4f84719f6aa"
+          },
+          "hide": false,
+          "refCount": 0,
+          "refId": "F",
+          "target": "alias(stats.gauges.$server.codes.503, 'Failed')"
         }
       ],
       "title": "Requests state (stacked)",
@@ -677,8 +687,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -828,8 +837,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -923,14 +931,37 @@
           "hide": false,
           "refCount": 0,
           "refId": "B",
-          "target": "aliasSub(grep(aliasByNode(asPercent(stats.gauges.cadvisor.*.memory_working_set, 34359738368), 3), 'node*'), '7543.*node', 'mem-node')"
+          "target": "aliasSub(grep(aliasByNode(asPercent(stats.gauges.cadvisor.*.memory_working_set, 34359738368), 3), 'node*'), '7543.*node', 'mem-node')",
+          "textEditor": false
+        },
+        {
+          "datasource": {
+            "type": "graphite",
+            "uid": "f55f4680-2798-4432-b404-d4f84719f6aa"
+          },
+          "hide": false,
+          "refCount": 0,
+          "refId": "D",
+          "target": "alias(asPercent(stats.gauges.cadvisor.7543-arquitectura-software-redis-1.memory_working_set, 34359738368), 'mem-cache')",
+          "textEditor": false
+        },
+        {
+          "datasource": {
+            "type": "graphite",
+            "uid": "f55f4680-2798-4432-b404-d4f84719f6aa"
+          },
+          "hide": false,
+          "refCount": 0,
+          "refId": "A",
+          "target": "alias(removeBelowValue(asPercent(derivative(keepLastValue(stats.gauges.cadvisor.7543-arquitectura-software-redis-1.cpu_cumulative_usage, 100)), 10000000000), 0.0001), 'cpu-cache')",
+          "textEditor": false
         }
       ],
       "title": "Resources Stacked",
       "type": "timeseries"
     }
   ],
-  "refresh": "",
+  "refresh": "5s",
   "schemaVersion": 39,
   "tags": [],
   "templating": {
@@ -1033,6 +1064,6 @@
   "timezone": "",
   "title": "Crowd Strike Dashboard",
   "uid": "arxIPammkj",
-  "version": 11,
+  "version": 14,
   "weekStart": ""
 }

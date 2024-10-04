@@ -1,5 +1,5 @@
 config:
-  target: "http://node:3000"
+  target: "http://nginx:80"
   plugins:
     statsd:
       host: graphite

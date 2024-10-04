@@ -4,6 +4,9 @@ artillery-build:
 artillery-run-ping: artillery-build
 	docker run -it --rm --network=7543-arquitectura-software -v ./perf/scenarios/:/scenarios/ artillery npx artillery run /scenarios/ping.yml
 
+artillery-run-random-fact: artillery-build
+	docker run -it --rm --network=7543-arquitectura-software -v ./perf/scenarios/:/scenarios/ artillery npx artillery run /scenarios/random_fact.yml
+
 artillery-run-dict: artillery-build
 	docker run -it --rm --network=7543-arquitectura-software -v ./perf/scenarios/:/scenarios/ artillery npx artillery run /scenarios/dictionary.yml
 

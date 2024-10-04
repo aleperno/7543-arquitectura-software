@@ -105,6 +105,29 @@ app.get('/quote', (_req, res) => {
         });
 });
 
+
+app.get('/random_fact', (_req, res) => {
+    const url = 'https://uselessfacts.jsph.pl/api/v2/facts/random';
+    console.log("Searching for random fact");
+    const start = Date.now();
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            //console.log(`Fact: ${data}`);
+            const response = {
+                fact: data.text
+            }
+            res.send(response);
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).send('Internal server error');
+        });
+    const end = Date.now();
+    statsd_client.gauge(`server_timing`, end-start);
+});
+
+
 async function initApp() {
   await initRedis();
 

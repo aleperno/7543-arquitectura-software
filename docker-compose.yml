@@ -18,7 +18,7 @@ services:
             - ./app/redis.js:/app/redis.js
         command: npm start
         deploy:
-            replicas: 5
+            replicas: 1
     nginx:
         build:
             context: nginx

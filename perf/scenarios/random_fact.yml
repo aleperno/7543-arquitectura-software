@@ -8,7 +8,7 @@ config:
   phases:
     - name: prerush
       duration: 30
-      arrivalRate: 5
+      arrivalRate: 2
     - name: increasing
       duration: 30      # Test duration in seconds
       arrivalRate: 5    # Number of requests per second
@@ -23,4 +23,4 @@ config:
 scenarios:
   - flow:
       - get:
-          url: "/spaceflight_news"
+          url: "/random_fact"
